@@ -133,7 +133,7 @@ export const ResultsServices: React.FC<ResultsServicesProps> = ({ onOpenDemo }) 
                       </span>
                       <span className="text-xs text-slate-400">Authentic Terminal Record</span>
                     </div>
-                    <h3 className="text-sm font-bold text-brand-navy mb-1.5 line-clamp-1">
+                    <h3 className="text-sm font-bold text-brand-navy mb-1.5">
                       {image.title}
                     </h3>
                     <p className="text-xs text-slate-500 leading-relaxed">

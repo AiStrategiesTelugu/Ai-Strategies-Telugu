@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Calendar,
@@ -19,17 +19,63 @@ import {
   Settings,
   Monitor,
   Check,
-  Brain
+  Brain,
+  Maximize2,
+  Info,
+  AlertTriangle
 } from 'lucide-react';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
 import { BRAND } from '../data/brand';
 import { MarketTicker } from '../components/MarketTicker';
+import { ImageModal, ModalImage } from '../components/ImageModal';
 
 interface HomeProps {
   onOpenDemo: () => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
+  const [modalImages, setModalImages] = useState<ModalImage[]>([]);
+  const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+
+  const strategyImage: ModalImage[] = [
+    {
+      src: '/images/ai-strategy-chart.png',
+      alt: 'AI Smart Strategies Telugu Original Candlestick Chart Setup with BUY, SELL, and SL indications',
+      title: 'Original AI Strategy Candlestick Setup',
+      caption: 'Illustrative strategy screenshot displaying predefined BUY indications (green), SELL targets (red), and Stop-Loss (SL) parameters across intraday market swings.'
+    }
+  ];
+
+  const resultImages: ModalImage[] = [
+    {
+      src: '/images/trading-result-1.png',
+      alt: 'Historical Trading Example - Intraday NIFTY Options P&L Statement',
+      title: 'Historical Trading Result 1 — Intraday NIFTY P&L Statement',
+      caption: 'Historical intraday order execution statement for NIFTY 18 Aug Put options. Provided as an illustrative historical example. Past results do not guarantee future performance.'
+    },
+    {
+      src: '/images/trading-result-2.png',
+      alt: 'Historical Trading Example - Broker Position & P&L Statement',
+      title: 'Historical Trading Result 2 — Options Position Statement',
+      caption: 'Broker position execution statement showing executed trade on NIFTY 18 Aug 24300 Put. Individual outcomes vary based on execution timing, liquidity, and broker conditions.'
+    },
+    {
+      src: '/images/trading-result-3.png',
+      alt: 'Historical Trading Example - Terminal Portfolio Position Overview',
+      title: 'Historical Trading Result 3 — Terminal Portfolio Overview',
+      caption: 'Trading terminal portfolio overview showing executed NIFTY 18th Aug Call & Put positions. Trading in derivatives involves substantial risk of capital loss.'
+    }
+  ];
+
+  const openStrategyModal = () => {
+    setModalImages(strategyImage);
+    setActiveModalIndex(0);
+  };
+
+  const openResultModal = (idx: number) => {
+    setModalImages(resultImages);
+    setActiveModalIndex(idx);
+  };
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* 1. MARKET TICKER BAR (DIRECTLY BELOW HEADER) */}
@@ -165,8 +211,208 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
         </div>
       </section>
 
+
+      {/* 3. OUR AI STRATEGY CANDLESTICK FRAMEWORK (COMPACT & VIEWPORT-OPTIMIZED) */}
+      <section className="py-8 sm:py-10 lg:py-12 bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-5xl mx-auto mb-5">
+            <h2 className="text-xl sm:text-2xl md:text-[28px] lg:text-[32px] font-black text-[#07182F] tracking-tight mb-1.5 sm:whitespace-nowrap">
+              CANDLESTICK INDICATION &amp; <span className="text-brand-blue">RISK BOUNDARY FRAMEWORK</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Algorithmic entry rules, defensive stop-losses, and profit targets across Indian indices.
+            </p>
+          </div>
+
+          {/* Compact 3-Signal Badge Strip */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 max-w-4xl mx-auto mb-4 text-xs font-bold">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 border border-emerald-200/90 text-emerald-950">
+              <span className="w-4 h-4 rounded bg-emerald-500 text-white text-[10px] font-extrabold flex items-center justify-center">B</span>
+              <span>BUY: 300, 200, 250 (Entry Zones)</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-red-50 border border-red-200/90 text-red-950">
+              <span className="w-4 h-4 rounded bg-[#DC3545] text-white text-[10px] font-extrabold flex items-center justify-center">SL</span>
+              <span>SL: 270, 185, 230 (Stop-Loss Bounds)</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-50 border border-blue-200/90 text-blue-950">
+              <span className="w-4 h-4 rounded bg-brand-blue text-white text-[10px] font-extrabold flex items-center justify-center">S</span>
+              <span>SELL: 350, 320, 400 (Target Milestones)</span>
+            </div>
+          </div>
+
+          {/* Elevated Compact Chart Showcase Card */}
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white rounded-2xl border border-slate-200/90 shadow-[0_8px_30px_rgba(7,24,47,0.06)] overflow-hidden">
+              {/* Chart Header Bar */}
+              <div className="px-4 py-2.5 bg-[#07182F] text-white flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-brand-electric">
+                      ORIGINAL STRATEGY SETUP
+                    </span>
+                    <span className="text-slate-400 text-xs hidden sm:inline">•</span>
+                    <h3 className="text-xs sm:text-sm font-bold text-white hidden sm:inline">
+                      NIFTY &amp; BANKNIFTY Algorithmic Engine
+                    </h3>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={openStrategyModal}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all cursor-pointer"
+                  aria-label="Enlarge candlestick chart"
+                >
+                  <Maximize2 className="w-3.5 h-3.5 text-brand-electric" />
+                  <span>Enlarge Chart</span>
+                </button>
+              </div>
+
+              {/* Chart Container - Balanced Max Height for Full Viewport Visibility */}
+              <div
+                className="relative p-2 sm:p-4 bg-slate-900/5 flex items-center justify-center cursor-pointer group"
+                onClick={openStrategyModal}
+              >
+                <img
+                  src="/images/ai-strategy-chart.png"
+                  alt="AI Smart Strategies Telugu Original Candlestick Chart Setup with BUY, SELL, and SL indications"
+                  className="w-full h-auto max-h-[350px] sm:max-h-[390px] lg:max-h-[420px] object-contain rounded-xl border border-slate-200 bg-white shadow-xs transition-transform duration-200 group-hover:scale-[1.005]"
+                  loading="eager"
+                />
+
+                {/* Hover Overlay Hint */}
+                <div className="absolute inset-0 bg-brand-navy/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center pointer-events-none">
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-navy/95 text-white text-xs font-bold shadow-lg backdrop-blur-xs">
+                    <Maximize2 className="w-4 h-4 text-brand-electric" />
+                    Click to View Full High-Resolution Chart
+                  </span>
+                </div>
+              </div>
+
+              {/* Compact Caption & Link Footer */}
+              <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                <div className="flex items-center gap-2 text-slate-600">
+                  <Info className="w-3.5 h-3.5 text-brand-blue shrink-0" />
+                  <p className="line-clamp-1 sm:line-clamp-none">
+                    <strong className="text-slate-800">Screenshot Context:</strong> Entry (<span className="text-emerald-700 font-bold">BUY 300, 200, 250</span>), Stop-Loss (<span className="text-red-700 font-bold">SL 270, 185, 230</span>), Targets (<span className="text-blue-700 font-bold">SELL 350, 320, 400</span>).
+                  </p>
+                </div>
+                <Link
+                  to="/strategy"
+                  className="inline-flex items-center gap-1 font-bold text-brand-blue hover:text-blue-700 whitespace-nowrap self-end sm:self-auto"
+                >
+                  <span>Strategy Details</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. OUR TRADING RESULTS (COMPACT, VIEWPORT-OPTIMIZED & IMAGE 3 PILL STYLE) */}
+      <section className="py-8 sm:py-10 lg:py-12 bg-[#F2F8FF] border-b border-[#E1EEFC]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-black text-[#07182F] tracking-tight mb-1">
+              OUR TRADING RESULTS
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Authentic broker order execution statements and terminal portfolio records demonstrating systematic strategy discipline.
+            </p>
+          </div>
+
+          {/* Slim Regulatory Notice Bar */}
+          <div className="max-w-5xl mx-auto mb-4 py-2 px-3.5 rounded-lg bg-amber-50/90 border border-amber-200/90 flex items-center gap-2 text-[11px] sm:text-xs text-amber-950 shadow-2xs">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <p className="leading-tight">
+              <strong>Regulatory Notice:</strong> Past results do not guarantee future performance. Derivatives (F&amp;O) involve market risk. Historical statements are provided for illustrative transparency.
+            </p>
+          </div>
+
+          {/* Compact 3-Card Screenshot Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            {resultImages.map((image, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-[0_8px_24px_rgba(7,24,47,0.08)] hover:border-brand-blue/40 transition-all flex flex-col overflow-hidden group cursor-pointer"
+                onClick={() => openResultModal(idx)}
+              >
+                {/* Image Container - Compact Fixed Height for Single Viewport */}
+                <div className="relative bg-slate-100/70 h-[210px] sm:h-[220px] lg:h-[235px] p-2.5 flex items-center justify-center border-b border-slate-100 overflow-hidden">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="max-h-[195px] sm:max-h-[210px] w-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-brand-navy/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-navy/95 text-white text-xs font-bold shadow-lg backdrop-blur-xs">
+                      <Maximize2 className="w-3.5 h-3.5 text-brand-electric" />
+                      Enlarge Statement
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Content */}
+                <div className="p-4 flex flex-col flex-grow justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-brand-blue border border-blue-100">
+                        Statement #{idx + 1}
+                      </span>
+                      <span className="text-[10px] font-semibold text-emerald-800 bg-[#E8FAF0] px-2 py-0.5 rounded border border-[#86EFAC]">
+                        Verified Record
+                      </span>
+                    </div>
+                    <h3 className="text-xs sm:text-sm font-bold text-[#07182F] mb-1">
+                      {image.title}
+                    </h3>
+                    <p className="text-[11px] text-slate-500 leading-snug line-clamp-2">
+                      {image.caption}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand-blue group-hover:text-blue-700">
+                    <span>Inspect full statement</span>
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Credibility Trust Highlights Row + Action Link */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 max-w-5xl mx-auto mt-4 pt-3 border-t border-[#CCE2FD] text-xs">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-6 text-slate-600 font-medium">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>100% Real Terminal Records</span>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Predefined Stop-Loss Bounds</span>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Dedicated Telugu Onboarding</span>
+              </span>
+            </div>
+            <Link
+              to="/results-services"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue hover:text-blue-700 whitespace-nowrap self-center sm:self-auto"
+            >
+              <span>View All Services &amp; Detailed Historical Records</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+
       {/* 3. WHY TRADE WITH AI? (EXACT MATCH TO REFERENCE IMAGE) */}
-      <section className="py-16 sm:py-20 bg-[#F4F8FD] border-b border-[#E1EEFC]">
+      <section className="py-16 sm:py-20 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
             <span className="text-xs sm:text-sm font-bold text-brand-blue tracking-wider uppercase mb-2 block font-sans">
@@ -283,7 +529,14 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
         </div>
       </section>
 
-      {/* 4. WHY AI SMART STRATEGIES TELUGU? (TWO-COLUMN WITH WORKSTATION VISUAL) */}
+      
+
+      
+
+      
+
+
+    {/* 4. WHY AI SMART STRATEGIES TELUGU? (TWO-COLUMN WITH WORKSTATION VISUAL) */}
       <section className="py-16 sm:py-20 bg-[#F2F8FF] border-y border-[#E1EEFC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -348,7 +601,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
         </div>
       </section>
 
-      {/* 5. HOW IT WORKS (3 SIMPLE STEPS) */}
+      {/* 6. HOW IT WORKS (3 SIMPLE STEPS) */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
@@ -443,6 +696,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
           </div>
         </div>
       </section>
+
 
       {/* 6. OUR SERVICES */}
       <section className="py-16 sm:py-20 bg-[#F2F8FF] border-t border-[#E1EEFC]">
@@ -619,7 +873,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
         </div>
       </section>
 
-      {/* 7. FINAL CTA (DARK NAVY BANNER WITH SUBTLE FINANCIAL CHART IMAGERY) */}
+      {/* 9. FINAL CTA (DARK NAVY BANNER WITH SUBTLE FINANCIAL CHART IMAGERY) */}
       <section className="py-16 sm:py-20 bg-[#07182F] text-white relative overflow-hidden text-center">
         {/* Subtle Watermark Chart Lines */}
         <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
@@ -672,6 +926,14 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
           </p>
         </div>
       </section>
+
+      {/* Lightbox Modal for Strategy & Results Images */}
+      <ImageModal
+        images={modalImages}
+        currentIndex={activeModalIndex}
+        onClose={() => setActiveModalIndex(null)}
+        onNavigate={(newIndex) => setActiveModalIndex(newIndex)}
+      />
     </div>
   );
 };
