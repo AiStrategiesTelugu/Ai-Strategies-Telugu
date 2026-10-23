@@ -684,7 +684,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
                   </div>
                   <Monitor className="w-5 h-5 text-brand-blue" />
                 </div>
-                <h3 className="text-lg font-bold text-[#07182F] mb-2">3. Monitor and Manage</h3>
+                <h3  className="text-lg font-bold text-[#07182F] mb-2">3. Monitor and Manage</h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   Review strategy indications in real time or monitor configured positions and risk limits with automated execution where supported.
                 </p>
