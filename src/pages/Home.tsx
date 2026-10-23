@@ -689,7 +689,7 @@ export const Home: React.FC<HomeProps> = ({ onOpenDemo }) => {
                   Review strategy indications in real time or monitor configured positions and risk limits with automated execution where supported.
                 </p>
               </div>
-              <div className="mt-6 pt-3 border-t border-slate-100 text-xs font-bold text-emerald-600">
+              <div  className="mt-6 pt-3 border-t border-slate-100 text-xs font-bold text-emerald-600">
                 Disciplined Execution
               </div>
             </div>
